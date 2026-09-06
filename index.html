@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Campus</title>
+
+<style>
+
+/* 🌸 BODY */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    overflow-x: hidden;
+}
+
+/* 🌸 NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #ff7eb3;
+}
+
+/* 🌟 HERO SECTION */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+}
+
+.hero p {
+    font-size: 18px;
+}
+
+/* BUTTONS */
+button {
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn {
+    background: #4caf50;
+    color: white;
+}
+
+.register-btn {
+    background: #ff7eb3;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* 🌸 FEATURES */
+.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px;
+}
+
+.card {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    margin: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    width: 200px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+/* 🌸 ANIMATION CIRCLES */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: float 6s infinite;
+}
+
+.circle:nth-child(1) { width: 100px; height: 100px; top: 10%; left: 10%; }
+.circle:nth-child(2) { width: 150px; height: 150px; top: 70%; left: 80%; }
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🌸 ANIMATION -->
+<div class="circle"></div>
+<div class="circle"></div>
+
+<!-- 🌸 NAVBAR -->
+<div class="navbar">
+    <h2>🌸 Campus</h2>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="students.html">Students</a>
+        <a href="courses.html">Courses</a>
+        <a href="reports.html">Reports</a>
+    </div>
+</div>
+
+<!-- 🌟 HERO -->
+<div class="hero">
+    <h1>🎓 Smart Campus Management System</h1>
+    <p>Manage Students, Faculty, Courses & Attendance in one place</p>
+
+    <button class="login-btn" onclick="goLogin()">Login</button>
+    <button class="register-btn" onclick="goRegister()">Register</button>
+</div>
+
+<!-- 🌸 FEATURES -->
+<div class="features">
+    <div class="card">👨‍🎓 Student Management</div>
+    <div class="card">👨‍🏫 Faculty Management</div>
+    <div class="card">📅 Attendance System</div>
+    <div class="card">📊 Reports & Analytics</div>
+</div>
+
+<script>
+
+/* NAVIGATION */
+function goLogin() {
+    window.location.href = "login.html";
+}
+
+function goRegister() {
+    window.location.href = "register.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anime Attendance</title>
+
+<style>
+
+/* 🌸 BODY */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+}
+
+/* 🌙 DARK MODE */
+.dark {
+    background: #121212;
+    color: white;
+}
+
+/* 📌 SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    position: fixed;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: #ff7eb3;
+}
+
+/* 📌 MAIN */
+.main {
+    margin-left: 260px;
+    padding: 20px;
+}
+
+/* 🌟 HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ✨ CARD STYLE */
+.card {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* INPUTS */
+input, select, button {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* BUTTON */
+button {
+    background: #ff7eb3;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+/* STATUS COLORS */
+.present {
+    color: green;
+    font-weight: bold;
+}
+
+.absent {
+    color: red;
+    font-weight: bold;
+}
+
+/* CLOCK */
+#clock {
+    font-size: 16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🌸 SIDEBAR -->
+<div class="sidebar">
+    <h2>🌸 Campus</h2>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="students.html">👨‍🎓 Students</a>
+    <a href="#">📅 Attendance</a>
+    <a href="faculty.html">👨‍🏫 Faculty</a>
+    <a href="courses.html">📚 Courses</a>
+    <a href="reports.html">📊 Reports</a>
+
+    <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
+
+<!-- 🌸 MAIN -->
+<div class="main">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>📅 Attendance Management</h1>
+        <span id="clock"></span>
+    </div>
+
+    <!-- FORM -->
+    <div class="card">
+        <input type="text" id="name" placeholder="Student Name">
+
+        <select id="status">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+
+        <button onclick="addAttendance()">Mark Attendance</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="attendanceTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+/* 📊 DATA */
+let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+
+/* ➕ ADD */
+function addAttendance() {
+    let name = document.getElementById("name").value;
+    let status = document.getElementById("status").value;
+    let date = new Date().toLocaleDateString();
+
+    if(name === "") {
+        alert("Enter student name");
+        return;
+    }
+
+    attendance.push({name, status, date});
+    localStorage.setItem("attendance", JSON.stringify(attendance));
+
+    displayAttendance();
+}
+
+/* 📋 DISPLAY */
+function displayAttendance() {
+    let table = document.getElementById("attendanceTable");
+    table.innerHTML = "";
+
+    attendance.forEach((a, i) => {
+        table.innerHTML += `
+        <tr>
+            <td>${a.name}</td>
+            <td class="${a.status === 'Present' ? 'present' : 'absent'}">
+                ${a.status}
+            </td>
+            <td>${a.date}</td>
+            <td><button onclick="deleteAttendance(${i})">Delete</button></td>
+        </tr>`;
+    });
+}
+
+/* ❌ DELETE */
+function deleteAttendance(i) {
+    attendance.splice(i, 1);
+    localStorage.setItem("attendance", JSON.stringify(attendance));
+    displayAttendance();
+}
+
+/* 🕒 CLOCK */
+function updateClock() {
+    let now = new Date();
+    document.getElementById("clock").innerText = now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+
+/* 🚪 LOGOUT */
+function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
+
+/* LOAD */
+displayAttendance();
+
+</script>
+
+</body>
+</html>

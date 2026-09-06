@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins';
+    background: linear-gradient(135deg, #d4fc79, #96e6a1);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 320px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    background: #4caf50;
+    color: white;
+    border: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>🌿 Register</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="newUsername" placeholder="Username">
+    <input type="password" id="newPassword" placeholder="Password">
+
+    <button onclick="register()">Register</button>
+
+    <p><a href="index.html">Back to Login</a></p>
+    
+    
+</div>
+
+<script>
+function register() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let user = document.getElementById("newUsername").value;
+    let pass = document.getElementById("newPassword").value;
+
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
+    localStorage.setItem("username", user);
+    localStorage.setItem("password", pass);
+
+    alert("🌸 Registration Successful!");
+
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

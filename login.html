@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Peaceful Anime Login</title>
+
+<style>
+/* 🌸 Peaceful Anime Background */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🌿 Soft Glass Box */
+.login-box {
+    width: 320px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* 🌼 Heading */
+h2 {
+    color: #444;
+}
+
+/* Inputs */
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.7);
+}
+
+/* Button */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #7aa7ff;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5f8cff;
+    transform: scale(1.05);
+}
+
+/* Link */
+a {
+    text-decoration: none;
+    color: #5f8cff;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>🌸 Campus Login</h2>
+
+    <input type="text" id="username" placeholder="👤 Username">
+    <input type="password" id="password" placeholder="🔒 Password">
+
+    <button onclick="login()">Login</button>
+
+    <p>New user? <a href="register.html">Register</a></p>
+</div>
+
+<script>
+// Auto-fill after registration
+window.onload = function() {
+    let user = localStorage.getItem("username");
+    let pass = localStorage.getItem("password");
+
+    if(user && pass) {
+        document.getElementById("username").value = user;
+        document.getElementById("password").value = pass;
+    }
+};
+
+function login() {
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    let storedUser = localStorage.getItem("username");
+    let storedPass = localStorage.getItem("password");
+
+    if(user === storedUser && pass === storedPass) {
+        alert("✨ Welcome to Campus!");
+        window.location.href = "dashboard.html";
+    } else {
+        alert("❌ Invalid Details");
+    }
+}
+</script>
+
+</body>
+</html>

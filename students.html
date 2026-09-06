@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anime Student Management</title>
+
+<style>
+
+/* 🌸 BODY */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    transition: 0.4s;
+}
+
+/* 🌙 DARK MODE */
+.dark {
+    background: #121212;
+    color: white;
+}
+
+/* 📌 SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    position: fixed;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: #ff7eb3;
+}
+
+/* 📌 MAIN */
+.main {
+    margin-left: 260px;
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* INPUTS */
+input, button {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* BUTTON */
+button {
+    background: #ff7eb3;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+/* SEARCH */
+.search {
+    width: 200px;
+}
+
+/* CLOCK */
+#clock {
+    font-size: 16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🌸 SIDEBAR -->
+<div class="sidebar">
+    <h2>🌸 Campus</h2>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="#">👨‍🎓 Students</a>
+    <a href="attendance.html">📅 Attendance</a>
+    <a href="faculty.html">👨‍🏫 Faculty</a>
+    <a href="courses.html">📚 Courses</a>
+    <a href="reports.html">📊 Reports</a>
+
+    <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
+
+<!-- 🌸 MAIN -->
+<div class="main">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>👨‍🎓 Student Management</h1>
+        <div>
+            <span id="clock"></span>
+            <button onclick="toggleTheme()">🌙</button>
+        </div>
+    </div>
+
+    <!-- ADD FORM -->
+    <div class="card">
+        <input type="text" id="name" placeholder="Student Name">
+        <input type="text" id="course" placeholder="Course">
+        <button onclick="addStudent()">Add Student</button>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="card">
+        <input type="text" id="search" class="search" placeholder="Search..." onkeyup="searchStudent()">
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+/* DATA */
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+/* ADD */
+function addStudent() {
+    let name = document.getElementById("name").value;
+    let course = document.getElementById("course").value;
+
+    if(name === "" || course === "") {
+        alert("Enter all details");
+        return;
+    }
+
+    students.push({name, course});
+    localStorage.setItem("students", JSON.stringify(students));
+
+    displayStudents();
+}
+
+/* DISPLAY */
+function displayStudents(data = students) {
+    let table = document.getElementById("studentTable");
+    table.innerHTML = "";
+
+    data.forEach((s, i) => {
+        table.innerHTML += `
+        <tr>
+            <td>${s.name}</td>
+            <td>${s.course}</td>
+            <td><button onclick="deleteStudent(${i})">Delete</button></td>
+        </tr>`;
+    });
+}
+
+/* DELETE */
+function deleteStudent(i) {
+    students.splice(i, 1);
+    localStorage.setItem("students", JSON.stringify(students));
+    displayStudents();
+}
+
+/* SEARCH */
+function searchStudent() {
+    let search = document.getElementById("search").value.toLowerCase();
+
+    let filtered = students.filter(s =>
+        s.name.toLowerCase().includes(search) ||
+        s.course.toLowerCase().includes(search)
+    );
+
+    displayStudents(filtered);
+}
+
+/* CLOCK */
+function updateClock() {
+    let now = new Date();
+    document.getElementById("clock").innerText = now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+
+/* DARK MODE */
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
+
+/* LOGOUT */
+function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
+
+/* LOAD */
+displayStudents();
+
+</script>
+
+</body>
+</html>

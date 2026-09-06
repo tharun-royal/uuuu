@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Campus Dashboard</title>
+
+<style>
+
+/* 🌸 BODY */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+}
+
+/* 🌙 DARK MODE */
+.dark {
+    background: #121212;
+    color: white;
+}
+
+/* 📌 NAVBAR */
+.navbar {
+    width: 240px;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    position: fixed;
+    color: white;
+    padding: 20px;
+}
+
+.navbar h2 {
+    text-align: center;
+}
+
+.navbar a {
+    display: block;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    background: #ff7eb3;
+}
+
+/* 📌 MAIN */
+.main {
+    margin-left: 260px;
+    padding: 20px;
+}
+
+/* 👋 HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 📊 CARDS */
+.card {
+    display: inline-block;
+    width: 220px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* 📈 PROGRESS */
+.progress {
+    width: 100%;
+    background: #ddd;
+    border-radius: 10px;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #4caf50;
+    width: 70%;
+    border-radius: 10px;
+}
+
+/* 🌸 BUTTON */
+button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/* 📅 CLOCK */
+#clock {
+    font-size: 18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 📌 NAVBAR -->
+<div class="navbar">
+    <h2>🌸 Campus</h2>
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">👨‍🎓 Students</a>
+    <a href="#">👨‍🏫 Faculty</a>
+    <a href="#">📚 Courses</a>
+    <a href="#">📅 Attendance</a>
+    <a href="#">📊 Reports</a>
+    <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
+<div class="navbar">
+    <h2>🌸 Campus</h2>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+    
+    <a href="students.html">👨‍🎓 Students</a>   <!-- ✅ HERE -->
+
+    <a href="attendance.html">📅 Attendance</a>
+    <a href="faculty.html">👨‍🏫 Faculty</a>
+    <a href="courses.html">📚 Courses</a>
+    <a href="reports.html">📊 Reports</a>
+    <a href="Logout.html">🚪 Logout</a>
+
+    <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
+
+<!-- 📌 MAIN -->
+<div class="main">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 id="welcome"></h1>
+        <div>
+            <span id="clock"></span>
+            <button onclick="toggleTheme()">🌙</button>
+        </div>
+    </div>
+
+    <!-- CARDS -->
+    <div>
+        <div class="card">👨‍🎓 Students<br><b>120</b></div>
+        <div class="card">👨‍🏫 Faculty<br><b>25</b></div>
+        <div class="card">📚 Courses<br><b>15</b></div>
+        <div class="card">📊 Attendance<br><b>85%</b></div>
+    </div>
+
+    <!-- PROGRESS -->
+    <h3>Overall Performance</h3>
+    <div class="progress">
+        <div class="progress-bar"></div>
+    </div>
+
+    <!-- USER DETAILS -->
+    <h3>👤 Your Profile</h3>
+    <p id="userInfo"></p>
+
+</div>
+
+<script>
+
+/* 👤 LOAD USER DATA */
+let name = localStorage.getItem("name");
+let email = localStorage.getItem("email");
+
+document.getElementById("welcome").innerText = "Welcome, " + (name || "User") + " 👋";
+
+document.getElementById("userInfo").innerHTML =
+    "Name: " + (name || "N/A") + "<br>Email: " + (email || "N/A");
+
+/* 🕒 LIVE CLOCK */
+function updateClock() {
+    let now = new Date();
+    document.getElementById("clock").innerText = now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+
+/* 🌙 DARK MODE */
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
+
+/* 🚪 LOGOUT */
+function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
